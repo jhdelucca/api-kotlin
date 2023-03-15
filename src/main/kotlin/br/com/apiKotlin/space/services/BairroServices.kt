@@ -2,13 +2,15 @@ package br.com.apiKotlin.space.services
 
 import br.com.apiKotlin.space.model.Bairro
 import br.com.apiKotlin.space.model.Filial
+import br.com.apiKotlin.space.model.Imagem
 import br.com.apiKotlin.space.repository.BairroRepository
+import br.com.apiKotlin.space.repository.ImagemRepository
 import org.springframework.stereotype.Service
 import org.springframework.web.bind.annotation.PathVariable
 import java.sql.BatchUpdateException
 
 @Service
-class BairroServices(val bairroRepository: BairroRepository) {
+class BairroServices(val bairroRepository: BairroRepository , val imagemRepository: ImagemRepository) {
 
     fun getMapping(descricao:String?) : List<Bairro> {
         descricao?.let {
@@ -49,5 +51,9 @@ class BairroServices(val bairroRepository: BairroRepository) {
         }
         bairroRepository.deleteById(codigo)
         return "Deletado"
+    }
+
+    fun editImagem(imagem: Imagem) : Imagem {
+      return imagemRepository.save(imagem)
     }
 }

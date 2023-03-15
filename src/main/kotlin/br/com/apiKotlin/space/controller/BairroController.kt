@@ -4,7 +4,8 @@ import br.com.apiKotlin.space.extensions.toPostBairroModel
 import br.com.apiKotlin.space.extensions.toPutBairroModel
 //import br.com.apiKotlin.space.extensions.toPutBairroModel
 import br.com.apiKotlin.space.model.Bairro
-import br.com.apiKotlin.space.model.Filial
+import br.com.apiKotlin.space.model.Imagem
+import br.com.apiKotlin.space.request.RequestImagem
 import br.com.apiKotlin.space.request.RequestModelBairro
 import br.com.apiKotlin.space.services.BairroServices
 import br.com.apiKotlin.space.services.FilialServices
@@ -63,5 +64,11 @@ class BairroController (val bairroServices: BairroServices , val filialServices:
     @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteBairro(@PathVariable codigo:Int):String  {
        return bairroServices.deleteBairro(codigo)
+    }
+
+    @PostMapping("/imagem")
+    fun putImagem(@RequestBody imagem: RequestImagem ) : Imagem {
+        val img = Imagem(imagem.codigo,imagem.desc)
+        return bairroServices.editImagem(img)
     }
 }
